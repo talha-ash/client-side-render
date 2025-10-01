@@ -1,25 +1,39 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import "./App.css";
-import * as dayjs from "dayjs";
+import { Loading } from "./components/Loading";
+const Home = lazy(() => import(/* webpackChunkName: 'home' */ "./pages/Home.jsx"));
+const About = lazy(() =>
+  import(/* webpackChunkName: 'about' */ "./pages/About")
+);
+const Contact = lazy(() =>
+  import(/* webpackChunkName: 'contact' */ "./pages/Contact")
+);
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [page, setPage] = useState("Home");
 
   return (
     <div className="App">
-      <div>{dayjs().millisecond()}</div>
+      <ul>
+        Links
+        <li onClick={() => setPage("Home")}>
+          Home {page == "Home" ? "!!" : ""}
+        </li>
+        <li onClick={() => setPage("About")}>
+          About {page == "About" ? "!!" : ""}
+        </li>
+        <li onClick={() => setPage("Contact")}>
+          Contact {page == "Contact" ? "!!" : ""}
+        </li>
+      </ul>
       <h1>Rspack + React</h1>
       <div className="card">
-        <button type="button" onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        <Suspense fallback={<Loading />}>
+          {page == "Home" ? <Home /> : null}
+          {page == "About" ? <About /> : null}
+          {page == "Contact" ? <Contact /> : null}
+        </Suspense>
       </div>
-      <p className="read-the-docs">
-        Click on the Rspack and React logos to learn more
-      </p>
     </div>
   );
 }

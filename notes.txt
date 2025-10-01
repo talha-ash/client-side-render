@@ -12,4 +12,9 @@ modules, resolving dependencies, and handling dynamic imports (lazy loading).]
 [Point 3: Vendor Chunks: We create chunk name bendor which contain code for nodemodule libs.We mostly change our code
 so with this when user refresh or open our site only main chunk contain our code will be serve from server.
 Vendor code like react, react query etc will be serve by cache.We can further improve that by creating chunk for each
-library.With this we add new lib then only this lib code will be or effected one will be serve from server]
+library.With this we add new lib then only this lib code will be or effected one will be serve from server.Some Vendor
+have not separated chunks due to their small size(threshold set by bundler).]
+
+[Point 4: Async Chunks: Each async chunk is processed independently when chunks: 'initial'.So thats why react-big-calender
+is bundle with contact.jsx not separate vendor chunk for react-big-calendar.To do that we need chunks: "all"
+With this option it create bundle for synchronous as well as async code too like (lazy loading component).]

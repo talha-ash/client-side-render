@@ -1,0 +1,22 @@
+1. Two Types of Chunks
+
+Initial chunks: Loaded immediately at startup (synchronous imports)
+Async chunks: Loaded on-demand when needed (lazy loaded with import())
+
+2. The Problem with chunks: 'initial'
+
+Only extracts vendor code from the initial/main bundle
+Dependencies inside lazy-loaded components stay bundled with them
+Result: react-big-calendar remains inside contact.js instead of being extracted
+
+3. The Solution: chunks: 'all'
+
+Extracts vendor code from both initial and async chunks
+Creates separate vendor chunks even for lazy-loaded dependencies
+Result: vendor-react-big-calendar.js is created and can be cached separately
+
+4. Real Benefit
+
+Smaller lazy-loaded chunks (contact.js goes from 200 KB → 50 KB)
+Better caching: vendor libraries cached once, reused across all pages
+Faster subsequent page loads when user navigates to lazy-loaded routes

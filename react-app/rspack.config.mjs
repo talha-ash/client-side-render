@@ -71,9 +71,14 @@ export default defineConfig({
         runtimeChunk: 'single',
         splitChunks: {
             chunks: 'initial',
+            // minSize: 20000,
+            // minChunks: 1,
+
             cacheGroups: {
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
+                    // enforce: true,
+                    chunks: 'all',
                     // name: 'vendors'
                     name: module => {
                         const moduleName = (module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/) || [])[1]
