@@ -1,0 +1,6 @@
+Points
+
+[Point 1: MaxAGE effect is differ for index html and version assets.Browser send MaxAGE 0 for index 
+html to do force revalidation. Revalidation is conditional request which use etag or last modified to
+decide by server to send either 304 or 200 new file. For version file MaxAGE is what we set and browser not do revalidation.
+After MaxAGE gone than it start conditional request to either serve from cache or server] 
