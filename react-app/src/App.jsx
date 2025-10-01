@@ -1,12 +1,27 @@
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import * as dayjs from "dayjs";
 
-const App = () => {
+function App() {
+  const [count, setCount] = useState(0);
+
   return (
-    <div className="content">
-      <h1>Rsbuild with React</h1>
-      <p>Start building amazing things with Rsbuildddd.</p>
+    <div className="App">
+      <div>{dayjs().millisecond()}</div>
+      <h1>Rspack + React</h1>
+      <div className="card">
+        <button type="button" onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.jsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Rspack and React logos to learn more
+      </p>
     </div>
   );
-};
+}
 
 export default App;

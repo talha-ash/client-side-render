@@ -4,3 +4,12 @@ Points
 html to do force revalidation. Revalidation is conditional request which use etag or last modified to
 decide by server to send either 304 or 200 new file. For version file MaxAGE is what we set and browser not do revalidation.
 After MaxAGE gone than it start conditional request to either serve from cache or server] 
+
+[Point 2: RuntimeChunk Rspack Option : Runtime code refers to the small piece of code that Webpack injects into your bundled 
+application to facilitate the loading and execution of modules. This includes the logic for connecting 
+modules, resolving dependencies, and handling dynamic imports (lazy loading).]
+
+[Point 3: Vendor Chunks: We create chunk name bendor which contain code for nodemodule libs.We mostly change our code
+so with this when user refresh or open our site only main chunk contain our code will be serve from server.
+Vendor code like react, react query etc will be serve by cache.We can further improve that by creating chunk for each
+library.With this we add new lib then only this lib code will be or effected one will be serve from server]
