@@ -25,6 +25,10 @@ app.use(express.static(path.join(__dirname, 'public'), {
     lastModified: true // Keep Last-Modified header enabled
 }));
 
+app.get('/{*splat}', async (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+})
+
 // Fallback route if no static file is found
 app.use((req, res) => {
     res.status(404).send('File not found');

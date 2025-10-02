@@ -13,8 +13,14 @@ const isDev = process.env.NODE_ENV === "development";
 // Target browsers, see: https://github.com/browserslist/browserslist
 const targets = ["last 2 versions", "> 0.2%", "not dead", "Firefox ESR"];
 
-export default defineConfig({
+export default defineConfig(({mode}) => ({
     context: __dirname,
+    devServer: {
+        historyApiFallback: true,
+        port: 8080,
+        devMiddleware: { stats: 'errors-warnings' }
+    },
+    devtool: mode === 'production' ? 'source-map' : 'inline-source-map',
     entry: {
         main: "./src/main.jsx"
     },
@@ -62,7 +68,7 @@ export default defineConfig({
         // new rspack.HtmlRspackPlugin({
         //     template: "./index.html"
         // }),
-        // isDev ? new ReactRefreshRspackPlugin() : null,
+        isDev ? new ReactRefreshRspackPlugin() : null,
         new HtmlPlugin({ template: 'public/index.html', scriptLoading: 'module' }),
         new InjectAssetsPlugin(),
     ],
@@ -85,10 +91,11 @@ export default defineConfig({
                     // enforce: true,
                     chunks: 'all',
                     // name: 'vendors'
-                    name: module => {
+                    name: (module, chunks) => {
+                        const allChunksNames = chunks.map(({ name }) => name).join('.')
                         const moduleName = (module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/) || [])[1]
 
-                        return moduleName.replace('@', '')
+                        return `${moduleName}.${allChunksNames}`.replace('@', '')
                     }
                 }
             }
@@ -97,4 +104,4 @@ export default defineConfig({
     experiments: {
         css: true
     }
-});
+}));

@@ -25,3 +25,9 @@ final html.In hook we get all assets and our own created route file create a lis
 route.In html we inject this list with some script js which compare current path with pages list path.And on 
 compare we add link tag with assets links.So our home js is added as link tag with preload and downloaded parallel
 with main]
+
+[Point 6: Splitting Async Vendors: In our pages we have to download vendors js after our main page is 
+download.We want our vendor to be download in parallel with page js.we make chunks of vendor with respect 
+to page names for example page about and contact use dayjs we make single chunk of dayjs with name 
+about+contact.With this we can download these async vendor chunks with parent async chunks.With 
+the help of injectAssest plugin we map vendor and route so we now which vendor need in the route.]
