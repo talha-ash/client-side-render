@@ -3,6 +3,9 @@ import { fileURLToPath } from "node:url";
 import { defineConfig } from "@rspack/cli";
 import { rspack } from "@rspack/core";
 import { ReactRefreshRspackPlugin } from "@rspack/plugin-react-refresh";
+import InjectAssetsPlugin from './scripts/inject-assets-plugin.js'
+import HtmlPlugin from 'html-webpack-plugin'
+
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const isDev = process.env.NODE_ENV === "development";
@@ -56,11 +59,13 @@ export default defineConfig({
         ]
     },
     plugins: [
-        new rspack.HtmlRspackPlugin({
-            template: "./index.html"
-        }),
-        isDev ? new ReactRefreshRspackPlugin() : null
-    ].filter(Boolean),
+        // new rspack.HtmlRspackPlugin({
+        //     template: "./index.html"
+        // }),
+        // isDev ? new ReactRefreshRspackPlugin() : null,
+        new HtmlPlugin({ template: 'public/index.html', scriptLoading: 'module' }),
+        new InjectAssetsPlugin(),
+    ],
     optimization: {
         minimizer: [
             new rspack.SwcJsMinimizerRspackPlugin(),

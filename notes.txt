@@ -9,7 +9,7 @@ After MaxAGE gone than it start conditional request to either serve from cache o
 application to facilitate the loading and execution of modules. This includes the logic for connecting 
 modules, resolving dependencies, and handling dynamic imports (lazy loading).]
 
-[Point 3: Vendor Chunks: We create chunk name bendor which contain code for nodemodule libs.We mostly change our code
+[Point 3: Vendor Chunks: We create chunk name vendor which contain code for node module libs.We mostly change our code
 so with this when user refresh or open our site only main chunk contain our code will be serve from server.
 Vendor code like react, react query etc will be serve by cache.We can further improve that by creating chunk for each
 library.With this we add new lib then only this lib code will be or effected one will be serve from server.Some Vendor
@@ -18,3 +18,10 @@ have not separated chunks due to their small size(threshold set by bundler).]
 [Point 4: Async Chunks: Each async chunk is processed independently when chunks: 'initial'.So thats why react-big-calender
 is bundle with contact.jsx not separate vendor chunk for react-big-calendar.To do that we need chunks: "all"
 With this option it create bundle for synchronous as well as async code too like (lazy loading component).]
+
+[Point 5: Preload Async Pages: When our main js load then it download pages js like home.But we can improve it by 
+loading Home js parallel with main js.We use rspack html inject assets feature.We can inject some code to html before 
+final html.In hook we get all assets and our own created route file create a list which map assets path with Pages
+route.In html we inject this list with some script js which compare current path with pages list path.And on 
+compare we add link tag with assets links.So our home js is added as link tag with preload and downloaded parallel
+with main]
