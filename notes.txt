@@ -30,4 +30,9 @@ with main]
 download.We want our vendor to be download in parallel with page js.we make chunks of vendor with respect 
 to page names for example page about and contact use dayjs we make single chunk of dayjs with name 
 about+contact.With this we can download these async vendor chunks with parent async chunks.With 
-the help of injectAssest plugin we map vendor and route so we now which vendor need in the route.]
+the help of injectAssets plugin we map vendor and route so we now which vendor need in the route.]
+
+[Point 7: Preload Page Data: When our page js download and execute then we start downloading data for page.
+As we kno in advance what general data required by our page.We can create page manifest which have page url 
+and meta data like url for data that page required.we then make fetch request to data also parallel with main js 
+and page js download.As page js execute it fetch data from cache.]
